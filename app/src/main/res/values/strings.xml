@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">STOCKHOLM TOUR GUIDE</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="api_key">AIzaSyD_QHeDeM-H5kW3VWrvqCiu0za3PTfG6wk</string>
+    <string name="cannot_query_error_msg">Cannot query unknown URI:</string>
+    <string name="cannot_insert_error_msg">Cannot insert unknown URI:</string>
+    <string name="cannot_delete_error_msg">Cannot delete unknown URI:</string>
+    <string name="cannot_update_error_msg">Cannot update unknown URI:</string>
+    <string name="cannot_get_type_error_msg">Cannot get type for unknown URI:</string>
+    <string name="insertion_in_table_failed_msg">Insertion in table failed for Uri</string>
+</resources>
