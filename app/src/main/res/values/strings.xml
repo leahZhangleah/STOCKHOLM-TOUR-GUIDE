@@ -16,6 +16,8 @@
     <string name="fragment_two">Tours</string>
     <string name="fragment_three">Hotels</string>
     <string name="fragment_four">Food</string>
+    <string name="lat_key">lat</string>
+    <string name="lng_key">lng</string>
     <string name="cursor_pos_key">cursorPosition</string>
     <string name="tab_title_key">tabTitle</string>
     <string name="string_array_key">cursor</string>

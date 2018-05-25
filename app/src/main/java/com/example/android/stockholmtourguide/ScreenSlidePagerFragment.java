@@ -21,12 +21,16 @@ import android.widget.TextView;
 public class ScreenSlidePagerFragment extends android.support.v4.app.Fragment {
     private String[] cursor;
     private byte[] photoBlob;
+    private float lat;
+    private float lng;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         cursor = getArguments()!=null?getArguments().getStringArray(getString(R.string.string_array_key)):null;
         photoBlob = getArguments()!= null? getArguments().getByteArray(getString(R.string.photo_blob_key)):null;
+        lat = getArguments()!=null? getArguments().getFloat(getString(R.string.lat_key)):null;
+        lng = getArguments()!=null? getArguments().getFloat(getString(R.string.lng_key)):null;
     }
 
     @Nullable
@@ -57,6 +61,7 @@ public class ScreenSlidePagerFragment extends android.support.v4.app.Fragment {
         String address = cursor[4];
         String openTime = cursor[5];
         String email = cursor[6];
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,12 +90,15 @@ public class ScreenSlidePagerFragment extends android.support.v4.app.Fragment {
             }
         });
         mAddressV.setText(address);
-        /*mAddressV.setOnClickListener(new View.OnClickListener() {
+        mAddressV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW)
+                Uri gmmIntentUri = Uri.parse("geo:"+lat+","+lng);
+                Intent intent = new Intent(Intent.ACTION_VIEW,gmmIntentUri);
+                intent.setPackage("com.google.android.apps.maps");
+                startActivity(intent);
             }
-        });*/
+        });
         if (TextUtils.isEmpty(openTime)){
             openTimeLayout.setVisibility(View.GONE);
         }else{

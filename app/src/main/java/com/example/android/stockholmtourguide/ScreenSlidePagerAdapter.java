@@ -39,6 +39,8 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
             int addressColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_ADDRESS);
             int openTimeColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_OPEN_TIME);
             int emailColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_EMAIL);
+            int latColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_LAT);
+            int lngColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_LNG);
 
             int id = mCursor.getInt(idColumnIndex);
             String name = mCursor.getString(nameColumnIndex);
@@ -49,10 +51,14 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
             String address = mCursor.getString(addressColumnIndex);
             String openTime = mCursor.getString(openTimeColumnIndex);
             String email = mCursor.getString(emailColumnIndex);
+            float lat = mCursor.getFloat(latColumnIndex);
+            float lng = mCursor.getFloat(lngColumnIndex);
 
             String[] value = new String[]{name,introduction,phone,website,address,openTime,email};
             arguments.putStringArray(mContext.getString(R.string.string_array_key),value);
             arguments.putByteArray(mContext.getString(R.string.photo_blob_key),photoBlob);
+            arguments.putFloat(mContext.getString(R.string.lat_key),lat);
+            arguments.putFloat(mContext.getString(R.string.lng_key),lng);
             ScreenSlidePagerFragment fragment = new ScreenSlidePagerFragment();
             fragment.setArguments(arguments);
             return fragment;

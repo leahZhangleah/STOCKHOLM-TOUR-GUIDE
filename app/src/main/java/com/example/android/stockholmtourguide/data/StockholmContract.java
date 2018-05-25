@@ -19,8 +19,8 @@ public class StockholmContract {
         public static final String TABLE_COLUMN_EMAIL = "email";
         public static final String TABLE_COLUMN_WEBSITE = "website";
         public static final String TABLE_COLUMN_ADDRESS = "address";
-        public static final String TABLE_COLUMN_PRICE = "price";
-        public static final String TABLE_COLUMN_RATING = "rating";
+        public static final String TABLE_COLUMN_LAT = "lat";
+        public static final String TABLE_COLUMN_LNG = "lng";
         public static final String TABLE_COLUMN_PHOTO = "photo";
 
         public static final String CONTENT_AUTHORITY = "com.example.android.stockholmtourguide";

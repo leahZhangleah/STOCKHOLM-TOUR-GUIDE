@@ -63,7 +63,8 @@ public class ScreenSlidePagerActivity extends AppCompatActivity implements Loade
                 StockholmEntry.TABLE_COLUMN_NAME,StockholmEntry.TABLE_COLUMN_PHOTO,
                 StockholmEntry.TABLE_COLUMN_INTRODUCTION,StockholmEntry.TABLE_COLUMN_OPEN_TIME,
                 StockholmEntry.TABLE_COLUMN_WEBSITE, StockholmEntry.TABLE_COLUMN_ADDRESS,
-                StockholmEntry.TABLE_COLUMN_PHONE,StockholmEntry.TABLE_COLUMN_EMAIL,};
+                StockholmEntry.TABLE_COLUMN_PHONE,StockholmEntry.TABLE_COLUMN_EMAIL,
+                StockholmEntry.TABLE_COLUMN_LAT,StockholmEntry.TABLE_COLUMN_LNG};
         switch (id){
             case LOADER_VERSION:
                 return new CursorLoader(this,uriToQuery,projection,null,null,null);
