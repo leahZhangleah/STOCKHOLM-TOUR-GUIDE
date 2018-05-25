@@ -10,4 +10,24 @@
     <string name="cannot_update_error_msg">Cannot update unknown URI:</string>
     <string name="cannot_get_type_error_msg">Cannot get type for unknown URI:</string>
     <string name="insertion_in_table_failed_msg">Insertion in table failed for Uri</string>
+    <string name="cursor_invalid_msg">Cannot lookup item id when cursor is in invalid state.</string>
+    <string name="cannot_move_cursor_msg">When trying to get an item id, could not move cursor to position:</string>
+    <string name="fragment_one">City</string>
+    <string name="fragment_two">Tours</string>
+    <string name="fragment_three">Hotels</string>
+    <string name="fragment_four">Food</string>
+    <string name="cursor_pos_key">cursorPosition</string>
+    <string name="tab_title_key">tabTitle</string>
+    <string name="string_array_key">cursor</string>
+    <string name="photo_blob_key">photo</string>
+    <string name="country_label">Country</string>
+    <string name="country_name">Sweden</string>
+    <string name="language_label">Language</string>
+    <string name="language">Swedish</string>
+    <string name="airport_label">Main Airports</string>
+    <string name="airport_name">Stockholm Arlanda Airport</string>
+    <string name="transportation_label">Transport Options</string>
+    <string name="transports">Tunnelbana, Bus, Commuter Train(Pendeltåg), Ferry, Bike</string>
+    <string name="overview_label">About the city</string>
+    <string name="overview">The capital city of Sweden combines modern attractions with historic charm. Kick off your stay with visits to Stockholm’s two UNESCO World Heritage Sites: the Royal Palace Drottningholm (the residence of the royal family) and the magical Skogskyrkogården, or Woodland Cemetery. Stroll the cobblestone streets of Old Town and over the picturesque bridges that span the city’s canals. The 19th-century Skansen was the world’s first open-air museum and is still a premier place to learn about Swedish history.</string>
 </resources>

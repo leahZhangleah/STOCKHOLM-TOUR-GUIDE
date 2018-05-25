@@ -3,4 +3,10 @@
     <dimen name="horizontal_margin">16dp</dimen>
     <dimen name="vertical_margin">8dp</dimen>
     <dimen name="card_view_corner_radius">7dp</dimen>
+    <dimen name="card_view_txt_size">15sp</dimen>
+    <dimen name="city_image_width">150dp</dimen>
+    <dimen name="city_image_height">200dp</dimen>
+    <dimen name="card_view_margin">2dp</dimen>
+    <dimen name="detail_view_name_txt_size">30sp</dimen>
+    <dimen name="detail_view_margin">2dp</dimen>
 </resources>

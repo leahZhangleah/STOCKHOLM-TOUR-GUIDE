@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ScreenSlidePagerActivity"
-            android:parentActivityName=".MainActivity"></activity>
+            android:theme="@style/Theme.Transparent"></activity>
         <provider
             android:authorities="com.example.android.stockholmtourguide"
             android:name=".data.StockholmContentProvider"

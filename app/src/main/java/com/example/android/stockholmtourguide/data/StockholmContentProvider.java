@@ -14,8 +14,10 @@ import com.example.android.stockholmtourguide.data.StockholmContract.StockholmEn
 
 import com.example.android.stockholmtourguide.R;
 
+import java.io.IOException;
+
 public class StockholmContentProvider extends ContentProvider {
-    private StockholmDBOpenHelper helper;
+    private CustomOpenHelper helper;
     private static final int ATTRACTION = 100;
     private static final int ATTRACTION_ID = 101;
     private static final int RESTAURANT = 200;
@@ -35,7 +37,12 @@ public class StockholmContentProvider extends ContentProvider {
     }
     @Override
     public boolean onCreate() {
-        helper = new StockholmDBOpenHelper(getContext());
+        helper = new CustomOpenHelper(getContext());
+        try{
+            helper.updateDataBase();
+        }catch (IOException e){
+            throw new Error("Unable to update database");
+        }
         return false;
     }
 

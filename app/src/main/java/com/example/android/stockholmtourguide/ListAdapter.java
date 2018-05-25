@@ -3,6 +3,8 @@ package com.example.android.stockholmtourguide;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,11 +25,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>  {
     private LayoutInflater inflater;
     private Context context;
     private Cursor mCursor;
-    private int cursorPosition;
+    private String tabTitle;
 
-    public ListAdapter(Cursor c,Context context) {
+    public ListAdapter(Cursor c,Context context,String tabTitle) {
         this.context = context;
         mCursor = c;
+        this.tabTitle = tabTitle;
     }
 
     @Override
@@ -35,19 +38,19 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>  {
         inflater = LayoutInflater.from(context);
         CardView cardView = (CardView) inflater.inflate(R.layout.one_row,parent,false);
         ViewHolder viewHolder = new ViewHolder(cardView);
-        Log.i("ListAdapter","oncreateviewHolder");
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (mCursor!=null && mCursor.moveToPosition(position)){
+            Log.i("ListAdapter", "the current position is: "+ position);
             int nameColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_NAME);
             String name = mCursor.getString(nameColumnIndex);
             int photoColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_PHOTO);
-            int photoId = mCursor.getInt(photoColumnIndex);
-            Log.i("ListAdapter","onBindviewHolder with cursor"+mCursor);
-            holder.imageView.setImageResource(photoId);
+            byte[] blob = mCursor.getBlob(photoColumnIndex);
+            Bitmap photo = BitmapFactory.decodeByteArray(blob,0,blob.length);
+            holder.imageView.setImageBitmap(photo);
             holder.nameView.setText(name);
         }
     }
@@ -64,18 +67,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>  {
     @Override
     public long getItemId(int position) {
         if (mCursor==null){
-            throw new IllegalStateException("Cannot lookup item id when cursor is in invalid state.");
+            throw new IllegalStateException(context.getString(R.string.cursor_invalid_msg));
         }
         if (!mCursor.moveToPosition(position)) {
-            throw new IllegalStateException("Could not move cursor to position " + position + " when trying to get an item id");
+            throw new IllegalStateException(context.getString(R.string.cannot_move_cursor_msg) +" " + position );
         }
-        //Log.i("custom adapter","get item id" + mCursor.getLong(mRowIdColumn));
         return mCursor.getLong(mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_ID));
     }
 
     public void swapCursor(Cursor newCursor){
         if (newCursor == mCursor){
-            Log.i("custom adapter","new cursor and old cursor is same");
             return;
         }
         if (newCursor!=null){
@@ -100,10 +101,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>  {
 
         @Override
         public void onClick(View v) {
-            cursorPosition = getAdapterPosition();
+            MainActivity.currentPosition = getAdapterPosition();
+            Log.i("ListAdapter", "the current adapter position is: "+getAdapterPosition());
             Intent intent = new Intent(context,ScreenSlidePagerActivity.class);
-            intent.putExtra("cursorPosition",cursorPosition);
-            Log.i("listadapter","the clicked position is: "+ cursorPosition);
+            intent.putExtra(context.getString(R.string.tab_title_key),tabTitle);
             context.startActivity(intent);
         }
     }

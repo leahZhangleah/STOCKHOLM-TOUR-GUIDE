@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#006BA8</color>
+    <color name="colorPrimaryDark">#004179</color>
+    <color name="colorAccent">#5299da</color>
+    <color name="sweden_blue_color">#006BA8</color>
+    <color name="sweden_yellow_color">#FECD01</color>
+    <color name="bg_gray">#ededed</color>
 </resources>

@@ -1,145 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools = "http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/detail_view_photo"
-        tools:src = "@drawable/stockholm_palace" />
+        android:layout_height="wrap_content">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/close_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close_black_24dp"
+            android:layout_margin = "@dimen/horizontal_margin"
+            app:backgroundTint="@android:color/white"
+            app:fabSize="mini"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/city_image_height"
+            android:id="@+id/detail_view_photo"
+            android:scaleType="centerCrop"
+            tools:src = "@drawable/stockholm_palace" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/colorPrimary">
+        android:background="@color/sweden_yellow_color">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/detail_view_name" />
+            android:id="@+id/detail_view_name"
+            android:textSize="@dimen/detail_view_name_txt_size"
+            android:textColor="@android:color/white"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginRight="@dimen/horizontal_margin" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/detail_view_introduction" />
-    </LinearLayout>
-
-
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="false"
-        android:max="5"
-        android:min="0"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Kr"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/detail_view_attraction_price" />
+            android:id="@+id/detail_view_introduction"
+            android:textColor="@android:color/white"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:layout_marginRight="@dimen/horizontal_margin"/>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        style="@style/detail_view_layout_style"
+        android:id="@+id/open_time_layout">
+
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/detail_view_symbol_style"
             android:src="@drawable/ic_access_time" />
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
             android:id="@+id/detail_view_open_time"
-            tools:text="9:00-16:00"
-            android:gravity="center"
-            android:textColor="@android:color/background_dark"/>
+            style="@style/detail_view_txt_style"
+            tools:text="9:00-16:00"/>
     </LinearLayout>
 
-
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        style="@style/detail_view_layout_style">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_local_phone"/>
+            style="@style/detail_view_symbol_style"
+            android:src="@drawable/ic_local_phone" />
         <TextView
             android:id="@+id/detail_view_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
             tools:text="+46 851952738"
-            android:autoLink="phone"
-            android:gravity="center"
-            android:textColor="@android:color/background_dark"
-            android:textColorLink="@android:color/background_dark"/>
+            style="@style/detail_view_txt_style"/>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        style="@style/detail_view_layout_style"
+        android:id="@+id/email_layout">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/detail_view_symbol_style"
             android:src="@drawable/ic_email"/>
         <TextView
             android:id="@+id/detail_view_email"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            tools:text="abcd@gmail.com"
-            android:clickable="true"
-            android:gravity="center"
-            android:autoLink="email"
-            android:textColorLink="@android:color/background_dark"/>
+            style="@style/detail_view_txt_style"
+            tools:text="abcd@gmail.com" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        style="@style/detail_view_layout_style">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_computer"/>
+            style="@style/detail_view_symbol_style"
+            android:src="@drawable/ic_computer" />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/detail_view_txt_style"
             android:id="@+id/detail_view_website"
-            tools:text="www.drottningspalace.se"
-            android:autoLink="web"
-            android:textColor="@android:color/background_dark"
-            android:textColorLink="@android:color/background_dark"/>
+            tools:text="www.drottningspalace.se" />
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        style="@style/detail_view_layout_style">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_location_on"/>
+            style="@style/detail_view_symbol_style"
+            android:src="@drawable/ic_location_on" />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            style="@style/detail_view_txt_style"
             android:id="@+id/detail_view_address"
-            tools:text="drottningsgatan 31"
-            android:textColor="@android:color/background_dark"/>
+            tools:text="drottningsgatan 31" />
     </LinearLayout>
-
 </LinearLayout>
+</ScrollView>

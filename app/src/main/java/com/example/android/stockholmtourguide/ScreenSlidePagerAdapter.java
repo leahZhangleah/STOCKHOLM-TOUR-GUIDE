@@ -1,6 +1,7 @@
 package com.example.android.stockholmtourguide;
 
 import android.app.FragmentManager;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,46 +17,42 @@ import java.util.HashMap;
 
 public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
     private Cursor mCursor;
-    private int cursorPos;
-    public ScreenSlidePagerAdapter(android.support.v4.app.FragmentManager fm, Cursor cursor, int position){
+    private Context mContext;
+    public ScreenSlidePagerAdapter(android.support.v4.app.FragmentManager fm, Cursor cursor,Context context){
         super(fm);
         mCursor = cursor;
-        cursorPos = position;
+        mContext = context;
     }
 
     @Override
     public Fragment getItem(int position) {
-        if (mCursor.moveToPosition(cursorPos)){
-            Log.i("ScreenSlideAdapter","the clicked position is: "+ cursorPos);
+        if (mCursor.moveToPosition(position)){
             Bundle arguments = new Bundle();
-
+            Log.i("ScreenAdapter", "the current position is: "+ position);
+            Log.i("ScreenAdapterMain", "the current position is: "+ MainActivity.currentPosition);
             int idColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_ID);
             int nameColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_NAME);
             int photoColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_PHOTO);
             int introductionColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_INTRODUCTION);
             int phoneColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_PHONE);
-            int emailColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_EMAIL);
             int websiteColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_WEBSITE);
             int addressColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_ADDRESS);
-            int priceColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_PRICE);
-            int ratingColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_RATING);
             int openTimeColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_OPEN_TIME);
+            int emailColumnIndex = mCursor.getColumnIndex(StockholmEntry.TABLE_COLUMN_EMAIL);
 
             int id = mCursor.getInt(idColumnIndex);
             String name = mCursor.getString(nameColumnIndex);
-            int photoId = mCursor.getInt(photoColumnIndex);
+            byte[] photoBlob = mCursor.getBlob(photoColumnIndex);
             String introduction = mCursor.getString(introductionColumnIndex);
             String phone = mCursor.getString(phoneColumnIndex);
-            String email = mCursor.getString(emailColumnIndex);
             String website = mCursor.getString(websiteColumnIndex);
             String address = mCursor.getString(addressColumnIndex);
-            String price = mCursor.getString(priceColumnIndex);
-            int rating = mCursor.getInt(ratingColumnIndex);
             String openTime = mCursor.getString(openTimeColumnIndex);
+            String email = mCursor.getString(emailColumnIndex);
 
-            String[] value = new String[]{name,String.valueOf(photoId),introduction,phone,email,website,address,price,String.valueOf(rating),openTime};
-            arguments.putStringArray("cursor",value);
-
+            String[] value = new String[]{name,introduction,phone,website,address,openTime,email};
+            arguments.putStringArray(mContext.getString(R.string.string_array_key),value);
+            arguments.putByteArray(mContext.getString(R.string.photo_blob_key),photoBlob);
             ScreenSlidePagerFragment fragment = new ScreenSlidePagerFragment();
             fragment.setArguments(arguments);
             return fragment;

@@ -1,6 +1,7 @@
 package com.example.android.stockholmtourguide;
 
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
@@ -8,15 +9,16 @@ import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import com.example.android.stockholmtourguide.data.StockholmContract.StockholmEntry;
 
-public class ScreenSlidePagerActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class ScreenSlidePagerActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,ViewPager.OnPageChangeListener {
     private  ViewPager slidePager;
     private static final int LOADER_VERSION = 2;
-    private static final Uri attractionUri = StockholmEntry.ATTRACTION_CONTENT_URI;
-    private int cursorPosition;
+    private static Uri uriToQuery;
+    private String tabTitle;
     private ScreenSlidePagerAdapter slidePagerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,21 +28,32 @@ public class ScreenSlidePagerActivity extends AppCompatActivity implements Loade
         if (savedInstanceState==null){
             Bundle extra = getIntent().getExtras();
             if (extra!=null){
-                cursorPosition = extra.getInt("cursorPosition");
+                tabTitle = extra.getString(getString(R.string.tab_title_key));
             }
         }else{
-            cursorPosition = savedInstanceState.getInt("cursorPosition");
+            tabTitle = savedInstanceState.getString(getString(R.string.tab_title_key));
         }
 
-        Log.i("ScreenSlideActivity","the clicked position is: "+ cursorPosition);
+        if (tabTitle!=null){
+            if (tabTitle.equals(getString(R.string.fragment_two))){
+                uriToQuery = StockholmEntry.ATTRACTION_CONTENT_URI;
+            }else if (tabTitle.equals(getString(R.string.fragment_three))){
+                uriToQuery = StockholmEntry.HOTEL_CONTENT_URI;
+            }else if (tabTitle.equals(getString(R.string.fragment_four))){
+                uriToQuery = StockholmEntry.RESTAURANT_CONTENT_URI;
+            }
+        }
 
         slidePager = findViewById(R.id.screen_slide_pager);
-        //TODO
-        slidePagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),null,cursorPosition);
+        slidePagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),null,this);
         slidePager.setAdapter(slidePagerAdapter);
-        slidePager.setCurrentItem(cursorPosition);
+        slidePager.addOnPageChangeListener(this);
         slidePager.setPageTransformer(true, new ZoomOutPagerTransformer());
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         getLoaderManager().initLoader(LOADER_VERSION,null,this);
     }
 
@@ -49,12 +62,11 @@ public class ScreenSlidePagerActivity extends AppCompatActivity implements Loade
         String[] projection = new String[]{StockholmEntry.TABLE_COLUMN_ID,
                 StockholmEntry.TABLE_COLUMN_NAME,StockholmEntry.TABLE_COLUMN_PHOTO,
                 StockholmEntry.TABLE_COLUMN_INTRODUCTION,StockholmEntry.TABLE_COLUMN_OPEN_TIME,
-                StockholmEntry.TABLE_COLUMN_EMAIL,StockholmEntry.TABLE_COLUMN_WEBSITE,
-                StockholmEntry.TABLE_COLUMN_ADDRESS,StockholmEntry.TABLE_COLUMN_RATING,
-                StockholmEntry.TABLE_COLUMN_PRICE,StockholmEntry.TABLE_COLUMN_PHONE};
+                StockholmEntry.TABLE_COLUMN_WEBSITE, StockholmEntry.TABLE_COLUMN_ADDRESS,
+                StockholmEntry.TABLE_COLUMN_PHONE,StockholmEntry.TABLE_COLUMN_EMAIL,};
         switch (id){
             case LOADER_VERSION:
-                return new CursorLoader(this,attractionUri,projection,null,null,null);
+                return new CursorLoader(this,uriToQuery,projection,null,null,null);
             default:
                 return null;
         }
@@ -63,14 +75,34 @@ public class ScreenSlidePagerActivity extends AppCompatActivity implements Loade
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (data!=null){
-            //TODO
             slidePagerAdapter.swapCursor(data);
+            slidePager.setCurrentItem(MainActivity.currentPosition);
         }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         slidePagerAdapter.swapCursor(null);
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        /*int currentPos = slidePager.getCurrentItem();
+        if (currentPos== position){
+
+        }*/
+        MainActivity.currentPosition = position;
+        Log.i("ScreenActivity", "the current position is: "+ position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 
     public class ZoomOutPagerTransformer implements ViewPager.PageTransformer{
